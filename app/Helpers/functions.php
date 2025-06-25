@@ -1,6 +1,7 @@
 <?php
 
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Collection;
 use Illuminate\Http\Exceptions\HttpResponseException;
 
 if (! function_exists('api_success')) {
@@ -15,7 +16,7 @@ if (! function_exists('api_success')) {
     {
         $res_data = ['status' => 'success', 'message' => $message];
 
-        if (! is_null($data)) {
+        if (! empty($data)) {
             $res_data['data'] = $data;
         }
 
@@ -95,5 +96,28 @@ if (! function_exists('ensureArrayOfType')) {
                 );
             }
         }
+    }
+}
+
+
+if (!function_exists('collection_response')) {
+    /**
+     * Return a response for API collection resources
+     *
+     * @param \Illuminate\Support\Collection $data
+     * @param string $message
+     * @param array $additonalData = []
+     *
+     * @return array
+     */
+    function collection_response(Collection $data, string $message = 'Data fetched successfully.', array $additonalData = []): array
+    {
+        return [
+            'status' => 'success',
+            'message' => $message,
+            'data' => $data,
+            ...$additonalData,
+            'api_version' => api_version()
+        ];
     }
 }

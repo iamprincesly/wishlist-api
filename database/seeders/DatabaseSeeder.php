@@ -2,7 +2,9 @@
 
 namespace Database\Seeders;
 
+use App\Models\Product;
 use App\Models\User;
+use App\Models\Wishlist;
 // use Illuminate\Database\Console\Seeds\WithoutModelEvents;
 use Illuminate\Database\Seeder;
 
@@ -13,11 +15,16 @@ class DatabaseSeeder extends Seeder
      */
     public function run(): void
     {
-        // User::factory(10)->create();
-
         User::factory()->create([
-            'name' => 'Test User',
-            'email' => 'test@example.com',
+            'name' => 'Sylvanus Etim',
+            'email' => 'iamprincesly@gmail.com',
+            'password' => 'password'
         ]);
+
+        // User::factory()->count(10)->create();
+
+        // Product::factory()->count(100)->create();
+
+        Wishlist::factory()->count(100)->create();
     }
 }

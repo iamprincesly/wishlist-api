@@ -1,6 +1,5 @@
 <?php
 
-use App\Exceptions\AuthException;
 use App\Http\Middleware\APIResponse;
 use Illuminate\Foundation\Application;
 use App\Http\Middleware\MustReturnJson;
@@ -35,7 +34,9 @@ return Application::configure(basePath: dirname(__DIR__))
             return api_failed_response('Unauthenticated, please login to your account to perform this action', 401);
         });
 
-        $exceptions->dontReport([
-            AuthException::class,
-        ]);
+        $exceptions->renderable(function (\Throwable $e) {
+            if (app()->isProduction()) {
+                return api_failed('Opps! Something went wrong, and we have been notified.', 500);
+            }
+        });
     })->create();
