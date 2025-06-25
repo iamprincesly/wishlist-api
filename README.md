@@ -157,6 +157,21 @@ vendor/bin/pest
 
 ---
 
+# For easy setup just run the below command
+```bash
+make setup
+```
+
+```bash
+make serve
+```
+
+```bash
+make test
+```
+
+---
+
 ## Tests Covered
 
 - ✅ User Registration
